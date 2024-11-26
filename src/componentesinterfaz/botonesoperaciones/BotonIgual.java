@@ -2,9 +2,11 @@ package componentesinterfaz.botonesoperaciones;
 
 import calculadora.Calculadora;
 import componentesinterfaz.Boton;
+import exceptions.MathException;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import operacionestextoanumero.OperacionesTextoANumero;
 
 /**
  * Clase que representa al botón que permite realizar la operación introducida en la calculadora.
@@ -29,7 +31,12 @@ public class BotonIgual extends Boton{
         @Override
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
-                //Realizar la operación y mostrar resultado por pantalla.
+                try{
+                    Calculadora.panel.setTextoMostrado(OperacionesTextoANumero.operar(Calculadora.panel.getTextoMostrado()));
+                }
+                catch(MathException e){
+                    Calculadora.panel.setTextoMostrado("Math Error");
+                }
             }
         }
 
