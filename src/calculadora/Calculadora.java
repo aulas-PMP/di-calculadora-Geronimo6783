@@ -24,6 +24,10 @@ public class Calculadora {
      */
     public static PanelSalida panel = new PanelSalida();
     
+    public static final int alturaCalculadoraNoPantallaCompleta = 600;
+    
+    public static int anchuraCalculadoraNoPantallaCompleta;
+    
     /**
      * Constructor de calculadoras.
      */
@@ -36,9 +40,11 @@ public class Calculadora {
         JFrame marco = new JFrame();
         marco.setTitle("Calculadora");
         marco.setLayout(new BoxLayout(marco.getContentPane(), BoxLayout.Y_AXIS));
-        marco.setBounds(anchuraPantalla/4, (alturaPantalla - 600)/2, anchuraPantalla/2, 600);
+        anchuraCalculadoraNoPantallaCompleta = anchuraPantalla/2;
+        marco.setBounds(anchuraPantalla/4, (alturaPantalla - 600)/2, anchuraCalculadoraNoPantallaCompleta, 600);
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panelSalida = new JPanel();
+        panelSalida.setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , Calculadora.alturaCalculadoraNoPantallaCompleta / 6);
         panelSalida.add(panel);
         marco.add(panelSalida);
         marco.add(new PanelBotones());

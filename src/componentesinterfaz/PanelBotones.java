@@ -1,6 +1,6 @@
 package componentesinterfaz;
 
-import javax.swing.BoxLayout;
+import calculadora.Calculadora;
 import javax.swing.JPanel;
 
 /**
@@ -13,7 +13,7 @@ public class PanelBotones extends JPanel{
      * Constructor del panel que contiene al panel de botones numéricos y el de operaciones.
      */
     public PanelBotones(){
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6);
         add(new PanelBotonesNumericos());
         add(new PanelBotonesOperaciones());
     }

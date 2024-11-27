@@ -3,7 +3,6 @@ package operacionestextoanumero;
 import exceptions.MathException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Clase que contiene utilidades para realizar operaciones matemáticas
@@ -36,7 +35,6 @@ public class OperacionesTextoANumero {
         Number operando1;
         Number operando2;
         Number resultadoOperacion = 0;
-        int numeroRecorrido = 0;
         
         while(iteradorOperadores.hasNext()){
             operador = iteradorOperadores.next();
@@ -59,20 +57,14 @@ public class OperacionesTextoANumero {
                 }
                 
                 iteradorOperadores.remove();
-                operando1 = resultadoOperacion;
+                numeros.set(numeros.indexOf(operando1), resultadoOperacion);
                 iteradorNumeros.remove();
                 iteradorNumeros = numeros.iterator();
-                numeroRecorrido++;
-                
-                for(int i = 0; i < numeroRecorrido; i++){
-                    operando1 = iteradorNumeros.next();
-                }
             }
         }
         
         iteradorNumeros = numeros.iterator();
         iteradorOperadores = operadores.iterator();
-        numeroRecorrido = 0;
         
         while(iteradorOperadores.hasNext()){
             operador = iteradorOperadores.next();
@@ -99,14 +91,9 @@ public class OperacionesTextoANumero {
             }
             
             iteradorOperadores.remove();
-            operando1 = resultadoOperacion;
+            numeros.set(numeros.indexOf(operando1), resultadoOperacion);
             iteradorNumeros.remove();
             iteradorNumeros = numeros.iterator();
-            numeroRecorrido++;
-            
-            for(int i = 0; i < numeroRecorrido; i++){
-                operando1 = iteradorNumeros.next();
-            }
         }
         
         if(resultadoOperacion instanceof Double){
@@ -134,6 +121,9 @@ public class OperacionesTextoANumero {
             switch(caracter){
                 case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ->{
                     numero += caracter;
+                    if(i == caracteresTextoOperaciones.length - 1){
+                        numeros.add(stringANumero(numero));
+                    }
                 }
                 
                 case '+', '*', '/' -> {
@@ -155,6 +145,8 @@ public class OperacionesTextoANumero {
                        caracteresTextoOperaciones[i - 1] == '6' || caracteresTextoOperaciones[i - 1] == '7' || 
                        caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9'){
                         
+                        numeros.add(stringANumero(numero));  
+                        numero = "";
                         operadores.add(caracter);
                     }
                     else{
@@ -188,11 +180,11 @@ public class OperacionesTextoANumero {
      */
     private static Number stringANumero(String numero) throws MathException {
         try{
-            return Double.valueOf(numero);
+            return Long.valueOf(numero);
         }
         catch(NumberFormatException e){
             try{
-                return  Long.valueOf(numero);
+                return  Double.valueOf(numero);
             }
             catch(NumberFormatException ex){
                 throw new MathException();

@@ -1,5 +1,6 @@
 package componentesinterfaz;
 
+import calculadora.Calculadora;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;

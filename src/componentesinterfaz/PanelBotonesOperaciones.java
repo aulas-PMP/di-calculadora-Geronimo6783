@@ -1,5 +1,6 @@
 package componentesinterfaz;
 
+import calculadora.Calculadora;
 import componentesinterfaz.botonesoperaciones.BotonBorrado;
 import componentesinterfaz.botonesoperaciones.BotonDivisor;
 import componentesinterfaz.botonesoperaciones.BotonIgual;
@@ -17,6 +18,7 @@ public class PanelBotonesOperaciones extends JPanel{
     
     public PanelBotonesOperaciones(){
         setLayout(new GridLayout(3,2));
+        setSize((Calculadora.anchuraCalculadoraNoPantallaCompleta * 1) / 4, (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6);
         add(new BotonSuma());
         add(new BotonResta());
         add(new BotonMultiplicacion());
