@@ -2,6 +2,8 @@ package componentesinterfaz;
 
 import calculadora.Calculadora;
 import componentesinterfaz.botonesnumericos.*;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -20,15 +22,25 @@ public class PanelBotonesNumericos extends JPanel{
      * botones numeŕicos y de operaciones.
      */
     public PanelBotonesNumericos(){
+        setMinimumSize(new Dimension((Calculadora.anchuraCalculadoraNoPantallaCompleta * 3) / 4, (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6));
         setLayout(new GridBagLayout());
-        setSize((Calculadora.anchuraCalculadoraNoPantallaCompleta * 3) / 4, (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6);
         GridBagConstraints restriccionesLayout = new GridBagConstraints();
+        restriccionesLayout.weightx = (Calculadora.anchuraCalculadoraNoPantallaCompleta * 3) / 4;
+        restriccionesLayout.weighty = (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6;
+        
         restriccionesLayout.fill = GridBagConstraints.BOTH;
-        restriccionesLayout.gridwidth = 3;
+        restriccionesLayout.gridwidth = 2;
         restriccionesLayout.gridheight = 1;
         restriccionesLayout.gridx = 0;
         restriccionesLayout.gridy = 3;
         add(new Boton0(), restriccionesLayout);
+        
+        restriccionesLayout.fill = GridBagConstraints.BOTH;
+        restriccionesLayout.gridwidth = 1;
+        restriccionesLayout.gridheight = 1;
+        restriccionesLayout.gridx = 2;
+        restriccionesLayout.gridy = 3;
+        add(new BotonDecimal(), restriccionesLayout);
         
         restriccionesLayout.fill = GridBagConstraints.BOTH;
         restriccionesLayout.gridwidth = 1;

@@ -2,6 +2,8 @@ package componentesinterfaz;
 
 import calculadora.Calculadora;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -10,7 +12,7 @@ import javax.swing.SwingConstants;
  * de las operaciones y las acciones que realiza el usuario.
  * @author Lois Domínguez Domínguez
  */
-public class PanelSalida extends JTextField{
+public class PanelSalida extends JLabel{
     
     /**
      * Texto mostrado por pantalla.
@@ -21,9 +23,11 @@ public class PanelSalida extends JTextField{
      * Constructor de paneles de salida.
      */
     public PanelSalida(){
-        super();
+        super(" ");
         setHorizontalAlignment(SwingConstants.RIGHT);
         setOpaque(true);
+        setFont(new Font("Liberation Serif", Font.BOLD, 100));
+        setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta, Calculadora.alturaCalculadoraNoPantallaCompleta / 6);
         setBackground(Color.WHITE);
     }
 
@@ -58,6 +62,6 @@ public class PanelSalida extends JTextField{
      */
     public void limpiar(){
         textoMostrado = "";
-        setText("");
+        setText(" ");
     }
 }

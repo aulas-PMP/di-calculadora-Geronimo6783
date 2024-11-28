@@ -1,6 +1,7 @@
 package componentesinterfaz;
 
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
@@ -16,6 +17,7 @@ public abstract class Boton extends JButton{
      */
     protected Boton(char caracter){
         super(Character.toString(caracter));
+        setFont(new Font("Liberation Serif", Font.BOLD, 25));
         setBackground(new Color(255,255,255));
         setBorder(new EmptyBorder(30,30,30,30));
     }

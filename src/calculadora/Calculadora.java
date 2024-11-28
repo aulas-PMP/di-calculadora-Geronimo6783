@@ -1,14 +1,11 @@
 package calculadora;
 
 import componentesinterfaz.PanelBotones;
-import componentesinterfaz.PanelBotonesNumericos;
-import componentesinterfaz.PanelBotonesOperaciones;
 import javax.swing.*;
 import componentesinterfaz.PanelSalida;
-import componentesinterfaz.botonesnumericos.*;
-import componentesinterfaz.botonesoperaciones.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Toolkit;
@@ -45,7 +42,8 @@ public class Calculadora {
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panelSalida = new JPanel();
         panelSalida.setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , Calculadora.alturaCalculadoraNoPantallaCompleta / 6);
-        panelSalida.add(panel);
+        panelSalida.setLayout(new BorderLayout());
+        panelSalida.add(panel, BorderLayout.CENTER);
         marco.add(panelSalida);
         marco.add(new PanelBotones());
         marco.addKeyListener(new EscuchadorTeclado());

@@ -28,79 +28,103 @@ public class OperacionesTextoANumero {
      * @throws MathException Cuando las operaciones matemáticas del texto no se pueden realizar.
      */
     public static String operar(String textoOperaciones) throws MathException {
-        obtenerNumeroYOperadores(textoOperaciones);
-        Iterator<Number> iteradorNumeros = numeros.iterator();
-        Iterator<Character> iteradorOperadores = operadores.iterator();
-        char operador;
-        Number operando1;
-        Number operando2;
-        Number resultadoOperacion = 0;
-        
-        while(iteradorOperadores.hasNext()){
-            operador = iteradorOperadores.next();
-            operando1 = iteradorNumeros.next();
-            operando2 = iteradorNumeros.next();
-            
-            if(operador == '*' || operador == '/'){
+        try{
+            obtenerNumeroYOperadores(textoOperaciones);
+            Iterator<Number> iteradorNumeros = numeros.iterator();
+            Iterator<Character> iteradorOperadores = operadores.iterator();
+            char operador;
+            Number operando1 = null;
+            Number operando2 = null;
+            Number resultadoOperacion = 0;
+
+            while(iteradorOperadores.hasNext()){
+                operador = iteradorOperadores.next();
+
+                if(operador == '*' || operador == '/'){
+                    operando1 = iteradorNumeros.next();
+                    operando2 = iteradorNumeros.next();
+                    switch(operador){
+                        case '*' -> {
+                            if(operando1 instanceof Double || operando2 instanceof Double){
+                                resultadoOperacion = operando1.doubleValue() * operando2.doubleValue();
+                            }
+                            else{
+                                resultadoOperacion = operando1.longValue() * operando2.longValue();
+                            }
+                        } 
+                        case '/' -> {     
+                            if(operando1.doubleValue() % operando2.doubleValue() != 0){
+                                resultadoOperacion = operando1.doubleValue() / operando2.doubleValue();
+                            }
+                            else{
+                                resultadoOperacion = operando1.longValue() / operando2.longValue();
+                            }
+                       }
+                    }
+
+                    iteradorOperadores.remove();
+                    numeros.set(numeros.indexOf(operando1), resultadoOperacion);
+                    iteradorNumeros.remove();
+                    iteradorNumeros = numeros.iterator();
+                }
+                else{
+                    if(operando1 != null){
+                        operando1 = operando2;
+                        operando2 = iteradorNumeros.next();
+                    }
+                    else{
+                        operando1 = iteradorNumeros.next();
+                        operando2 = iteradorNumeros.next();
+                    }
+                }
+            }
+
+            iteradorNumeros = numeros.iterator();
+            iteradorOperadores = operadores.iterator();
+
+            while(iteradorOperadores.hasNext()){
+                operador = iteradorOperadores.next();
+                operando1 = iteradorNumeros.next();
+                operando2 = iteradorNumeros.next();
+
                 switch(operador){
-                    case '*' -> {
+                    case '+' ->{
                         if(operando1 instanceof Double || operando2 instanceof Double){
-                            resultadoOperacion = operando1.doubleValue() * operando2.doubleValue();
+                            resultadoOperacion = operando1.doubleValue() + operando2.doubleValue();
                         }
                         else{
-                            resultadoOperacion = operando1.longValue() * operando2.longValue();
+                            resultadoOperacion = operando1.longValue() + operando2.longValue();
                         }
-                    } 
-                    case '/' -> {                       
-                        resultadoOperacion = operando1.doubleValue() / operando2.doubleValue();
-                   }
+                    }
+                    case '-' ->{
+                        if(operando1 instanceof Double || operando2 instanceof Double){
+                            resultadoOperacion = operando1.doubleValue() - operando2.doubleValue();
+                        }
+                        else{
+                            resultadoOperacion = operando1.longValue() - operando2.longValue();
+                        }
+                    }
                 }
-                
+
                 iteradorOperadores.remove();
                 numeros.set(numeros.indexOf(operando1), resultadoOperacion);
                 iteradorNumeros.remove();
                 iteradorNumeros = numeros.iterator();
             }
-        }
-        
-        iteradorNumeros = numeros.iterator();
-        iteradorOperadores = operadores.iterator();
-        
-        while(iteradorOperadores.hasNext()){
-            operador = iteradorOperadores.next();
-            operando1 = iteradorNumeros.next();
-            operando2 = iteradorNumeros.next();
+
+            numeros.clear();
+            operadores.clear();
             
-            switch(operador){
-                case '+' ->{
-                    if(operando1 instanceof Double || operando2 instanceof Double){
-                        resultadoOperacion = operando1.doubleValue() + operando2.doubleValue();
-                    }
-                    else{
-                        resultadoOperacion = operando1.longValue() + operando2.longValue();
-                    }
-                }
-                case '-' ->{
-                    if(operando1 instanceof Double || operando2 instanceof Double){
-                        resultadoOperacion = operando1.doubleValue() - operando2.doubleValue();
-                    }
-                    else{
-                        resultadoOperacion = operando1.longValue() - operando2.longValue();
-                    }
-                }
+            if(resultadoOperacion instanceof Double){
+ 
+                return Double.toString(resultadoOperacion.doubleValue());
             }
-            
-            iteradorOperadores.remove();
-            numeros.set(numeros.indexOf(operando1), resultadoOperacion);
-            iteradorNumeros.remove();
-            iteradorNumeros = numeros.iterator();
+            else{
+                return Long.toString(resultadoOperacion.longValue());
+            }
         }
-        
-        if(resultadoOperacion instanceof Double){
-            return Double.toString(resultadoOperacion.doubleValue());
-        }
-        else{
-            return Long.toString(resultadoOperacion.longValue());
+        catch(Exception e){
+            throw new MathException();
         }
     }
     
@@ -109,7 +133,7 @@ public class OperacionesTextoANumero {
      * @param textoOperaciones Texto con las operaciones matemáticas a realizar.
      */
     private static void obtenerNumeroYOperadores(String textoOperaciones) throws MathException {
-        textoOperaciones.replaceAll(",", ".");
+        textoOperaciones = textoOperaciones.replaceAll(",", ".");
         char[] caracteresTextoOperaciones = textoOperaciones.toCharArray();
         
         String numero = "";
@@ -139,11 +163,11 @@ public class OperacionesTextoANumero {
                 
                 case '-' -> {
                     
-                    if(i != 0 || caracteresTextoOperaciones[i - 1] == '0' || caracteresTextoOperaciones[i - 1] == '1' || 
+                    if(i != 0 && (caracteresTextoOperaciones[i - 1] == '0' || caracteresTextoOperaciones[i - 1] == '1' || 
                        caracteresTextoOperaciones[i - 1] == '2' || caracteresTextoOperaciones[i - 1] == '3' || 
                        caracteresTextoOperaciones[i - 1] == '4' || caracteresTextoOperaciones[i - 1] == '5' || 
                        caracteresTextoOperaciones[i - 1] == '6' || caracteresTextoOperaciones[i - 1] == '7' || 
-                       caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9'){
+                       caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9')){
                         
                         numeros.add(stringANumero(numero));  
                         numero = "";
