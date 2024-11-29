@@ -36,6 +36,8 @@ public class OperacionesTextoANumero {
             Number operando1 = null;
             Number operando2 = null;
             Number resultadoOperacion = 0;
+            int numeroOperacionesNoPrioritarias = 0;
+            int indiceNumero = 0;
 
             while(iteradorOperadores.hasNext()){
                 operador = iteradorOperadores.next();
@@ -54,20 +56,34 @@ public class OperacionesTextoANumero {
                         } 
                         case '/' -> {     
                             if(operando1.doubleValue() % operando2.doubleValue() != 0){
-                                resultadoOperacion = operando1.doubleValue() / operando2.doubleValue();
+                                if(operando2.doubleValue() != 0){
+                                    resultadoOperacion = operando1.doubleValue() / operando2.doubleValue();
+                                }
+                                else{
+                                    throw new MathException();
+                                }
                             }
                             else{
-                                resultadoOperacion = operando1.longValue() / operando2.longValue();
+                                if(operando2.longValue() != 0){
+                                    resultadoOperacion = operando1.longValue() / operando2.longValue();
+                                }
+                                else{
+                                    throw new MathException();
+                                }
                             }
                        }
                     }
 
                     iteradorOperadores.remove();
-                    numeros.set(numeros.indexOf(operando1), resultadoOperacion);
+                    numeros.set(numeroOperacionesNoPrioritarias, resultadoOperacion);
                     iteradorNumeros.remove();
                     iteradorNumeros = numeros.iterator();
+                    for(int i = 0; i < numeroOperacionesNoPrioritarias; i++){
+                        iteradorNumeros.next();
+                    }
                 }
                 else{
+                    numeroOperacionesNoPrioritarias++;
                     if(operando1 != null){
                         operando1 = operando2;
                         operando2 = iteradorNumeros.next();
