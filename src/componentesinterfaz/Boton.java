@@ -17,6 +17,7 @@ public abstract class Boton extends JButton{
      */
     protected Boton(char caracter){
         super(Character.toString(caracter));
+        setFocusable(false);
         setFont(new Font("Liberation Serif", Font.BOLD, 25));
         setBackground(new Color(255,255,255));
         setBorder(new EmptyBorder(30,30,30,30));
