@@ -17,7 +17,8 @@ public class BotonSuma extends Boton{
      */
     public BotonSuma(){
         super('+');
-        addMouseListener(new EscuchadorRaton());
+        escuchadorRaton = new EscuchadorRaton();
+        anadirEscuchadorRaton();
         setBackground(new Color(255,128,0));
     }
     
@@ -29,6 +30,7 @@ public class BotonSuma extends Boton{
         @Override
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
+                Calculadora.panel.setForeground(Color.black);
                 Calculadora.panel.mostrarCaracter('+');
             }
         }

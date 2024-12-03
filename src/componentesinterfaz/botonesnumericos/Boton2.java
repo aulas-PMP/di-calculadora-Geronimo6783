@@ -2,6 +2,7 @@ package componentesinterfaz.botonesnumericos;
 
 import calculadora.Calculadora;
 import componentesinterfaz.Boton;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -17,6 +18,8 @@ public class Boton2 extends Boton{
     public Boton2(){
         super('2');
         addMouseListener(new EscuchadorRaton());
+        escuchadorRaton = new EscuchadorRaton();
+        anadirEscuchadorRaton();
     }
     
     /**
@@ -27,6 +30,7 @@ public class Boton2 extends Boton{
         @Override
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
+                Calculadora.panel.setForeground(Color.black);
                 Calculadora.panel.mostrarCaracter('2');
             }
         }

@@ -17,7 +17,8 @@ public class BotonBorrado extends Boton{
      */
     public BotonBorrado(){
         super('←');
-        addMouseListener(new EscuchadorRaton());
+        escuchadorRaton = new EscuchadorRaton();
+        anadirEscuchadorRaton();
         setBackground(new Color(255,128,0));
     }
     
@@ -29,6 +30,7 @@ public class BotonBorrado extends Boton{
         @Override
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
+                Calculadora.panel.setForeground(Color.black);
                 String textoAMostrar = Calculadora.panel.getTextoMostrado();
                 int tamanoTexto = textoAMostrar.length();
                 if(tamanoTexto > 1){

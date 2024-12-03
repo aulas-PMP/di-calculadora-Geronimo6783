@@ -19,7 +19,8 @@ public class BotonIgual extends Boton{
      */
     public BotonIgual(){
         super('=');
-        addMouseListener(new EscuchadorRaton());
+        escuchadorRaton = new EscuchadorRaton();
+        anadirEscuchadorRaton();
         setBackground(new Color(255,128,0));
     }
     

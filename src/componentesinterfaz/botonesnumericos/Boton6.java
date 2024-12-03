@@ -17,7 +17,8 @@ public class Boton6 extends Boton{
      */
     public Boton6(){
         super('6');
-        addMouseListener(new EscuchadorRaton());
+        escuchadorRaton = new EscuchadorRaton();
+        anadirEscuchadorRaton();
     }
     
     /**
