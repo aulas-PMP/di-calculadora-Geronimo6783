@@ -1,7 +1,9 @@
 package componentesinterfaz;
 
 import calculadora.Calculadora;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 /**
@@ -13,19 +15,19 @@ public class PanelBotones extends JPanel{
     /**
      * Panel de los botones numéricos de la calculadora.
      */
-    private PanelBotonesNumericos panelBotonesNumericos;
+    private final PanelBotonesNumericos panelBotonesNumericos;
     
     /**
      * Panel de los botones de operaciones de la calculadora;
      */
-    private PanelBotonesOperaciones panelBotonesOperaciones;
+    private final PanelBotonesOperaciones panelBotonesOperaciones;
     
     /**
      * Constructor del panel que contiene al panel de botones numéricos y el de operaciones.
      */
     public PanelBotones(){
         setLayout(new GridLayout(1,2));
-        setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6);
+        Dimension tamanoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
         panelBotonesNumericos = new PanelBotonesNumericos();
         panelBotonesOperaciones = new PanelBotonesOperaciones();
         add(panelBotonesNumericos);

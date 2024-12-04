@@ -6,14 +6,13 @@ import componentesinterfaz.PanelSalida;
 import exceptions.MathException;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 import javax.swing.border.EmptyBorder;
 import operacionestextoanumero.OperacionesTextoANumero;
 
@@ -64,6 +63,7 @@ public class Calculadora extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panelSalida = new JPanel();
         panelSalida.setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , Calculadora.alturaCalculadoraNoPantallaCompleta / 6);
+        panelSalida.setMaximumSize(new Dimension(anchuraPantalla, (Calculadora.alturaCalculadoraNoPantallaCompleta / 6) * (alturaPantalla / Calculadora.alturaCalculadoraNoPantallaCompleta)));
         panelSalida.setLayout(new BorderLayout());
         panelSalida.add(panel, BorderLayout.CENTER);
         add(generarBarraDeMenus());
@@ -82,11 +82,12 @@ public class Calculadora extends JFrame{
      */
     private JMenuBar generarBarraDeMenus(){
         JMenuBar barraMenus = new JMenuBar();
+        barraMenus.setMaximumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 0));
         barraMenus.setOpaque(true);
         barraMenus.setBackground(Color.WHITE);
         JMenu menuModo = new JMenu("Modo");
         menuModo.setSize(50, barraMenus.getHeight());
-        menuModo.setBorder(new EmptyBorder(0,20,0,20));
+        menuModo.setBorder(new EmptyBorder(15,20,10,15));
         
         ButtonGroup grupoDeBotones = new ButtonGroup();
         JRadioButtonMenuItem botonModoRaton = new JRadioButtonMenuItem("Ratón");
@@ -99,9 +100,9 @@ public class Calculadora extends JFrame{
         botonModoTeclado.setBorder(new EmptyBorder(5,0,5,0));
         botonModoLibre.setBorder(new EmptyBorder(5,0,5,0));
         botonModoLibre.setSelected(true);
-        botonModoRaton.addMouseListener(new EscuchadorRatonModoRaton());
-        botonModoTeclado.addMouseListener(new EscuchadorRatonModoTeclado());
-        botonModoLibre.addMouseListener(new EscuchadorRatonModoLibre());
+        botonModoRaton.addActionListener(new EscuchadorAccionModoRaton());
+        botonModoTeclado.addActionListener(new EscuchadorAccionModoTeclado());
+        botonModoLibre.addActionListener(new EscuchadorAccionModoLibre());
         grupoDeBotones.add(botonModoRaton);
         grupoDeBotones.add(botonModoTeclado);
         grupoDeBotones.add(botonModoLibre);
@@ -120,44 +121,42 @@ public class Calculadora extends JFrame{
     }
     
     /**
-     * Clase que representa al escuchador del ratón del botón del modo ratón.
+     * Clase que representa al escuchador de acción del botón del modo ratón.
      */
-    private class EscuchadorRatonModoRaton extends MouseAdapter{
+    private class EscuchadorAccionModoRaton implements ActionListener{
         
             @Override
-            public void mouseClicked(MouseEvent e){
-                if(e.getButton() == MouseEvent.BUTTON1){
-                    removeKeyListener(escuchadorTeclado);
-                    panelBotones.anadirEscuchadorRatonBotones();
-                }
+            public void actionPerformed(ActionEvent e){
+                removeKeyListener(escuchadorTeclado);
+                panelBotones.eliminarEscuchadorRatonBotones();
+                panelBotones.anadirEscuchadorRatonBotones();
             }
     }
     
     /**
-     * Clase que representa al escuchador del ratón del botón del modo ratón.
+     * Clase que representa al escuchador de acción del botón del modo teclado.
      */
-    private class EscuchadorRatonModoTeclado extends MouseAdapter{
+    private class EscuchadorAccionModoTeclado implements ActionListener{
         
         @Override
-        public void mouseClicked(MouseEvent e){
-            if(e.getButton() == MouseEvent.BUTTON1){
-                addKeyListener(escuchadorTeclado);
-                panelBotones.eliminarEscuchadorRatonBotones();
-            }
+        public void actionPerformed(ActionEvent e){
+            removeKeyListener(escuchadorTeclado);
+            addKeyListener(escuchadorTeclado);
+            panelBotones.eliminarEscuchadorRatonBotones();
         }
     }
     
     /**
-     * Clase que representa al escuchador del ratón del botón del modo libre.
+     * Clase que representa al escuchador de acción del botón del modo libre.
      */
-    private class EscuchadorRatonModoLibre extends MouseAdapter{
+    private class EscuchadorAccionModoLibre implements ActionListener{
         
         @Override
-        public void mouseClicked(MouseEvent e){
-            if(e.getButton() == MouseEvent.BUTTON1){
-                addKeyListener(escuchadorTeclado);
-                panelBotones.anadirEscuchadorRatonBotones();
-            }
+        public void actionPerformed(ActionEvent e){
+            removeKeyListener(escuchadorTeclado);
+            addKeyListener(escuchadorTeclado);
+            panelBotones.eliminarEscuchadorRatonBotones();
+            panelBotones.anadirEscuchadorRatonBotones();
         }
     }
     
@@ -285,5 +284,10 @@ public class Calculadora extends JFrame{
                 }
             }
         }
+    }
+    
+    private class EscuchadorEventosVentana extends WindowAdapter{
+        
+        
     }
 }
