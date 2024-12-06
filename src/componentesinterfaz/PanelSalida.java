@@ -1,12 +1,8 @@
 package componentesinterfaz;
 
 import calculadora.Calculadora;
-import static calculadora.Calculadora.panel;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -23,10 +19,16 @@ public class PanelSalida extends JLabel{
     private String textoMostrado = "";
     
     /**
+     * Indica si lo que se muestra por pantalla es el resultado de una operación.
+     */
+    private boolean resultado;
+    
+    /**
      * Constructor de paneles de salida.
      */
     public PanelSalida(){
         super(" ");
+        resultado = false;
         setHorizontalAlignment(SwingConstants.RIGHT);
         setOpaque(true);
         setFont(new Font("Liberation Serif", Font.BOLD, 100));
@@ -49,6 +51,22 @@ public class PanelSalida extends JLabel{
     public void setTextoMostrado(String textoMostrado) {
         this.textoMostrado = textoMostrado;
         setText(textoMostrado);
+    }
+
+    /**
+     * Permite saber si el texto mostrado es el resultado de una operación.
+     * @return Indica si el texto mostrado es el resultado de una operación.
+     */
+    public boolean isResultado() {
+        return resultado;
+    }
+
+    /**
+     * Permite establecer si el texto mostrado es el resultado de una operación.
+     * @param resultado True para establecer que el texto mostrado es el resultado de una operación.
+     */
+    public void setResultado(boolean resultado) {
+        this.resultado = resultado;
     }
     
     /**

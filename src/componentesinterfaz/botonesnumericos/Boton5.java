@@ -29,6 +29,10 @@ public class Boton5 extends Boton{
         @Override
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
+                if(Calculadora.panel.isResultado()){
+                    Calculadora.panel.limpiar();
+                    Calculadora.panel.setResultado(false);
+                }
                 Calculadora.panel.setForeground(Color.black);
                 Calculadora.panel.mostrarCaracter('5');
             }

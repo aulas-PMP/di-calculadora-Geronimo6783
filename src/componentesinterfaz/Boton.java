@@ -2,7 +2,9 @@ package componentesinterfaz;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
@@ -26,7 +28,7 @@ public abstract class Boton extends JButton{
         setFocusable(false);
         setFont(new Font("Liberation Serif", Font.BOLD, 25));
         setBackground(new Color(255,255,255));
-        setBorder(new EmptyBorder(30,30,30,30));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     }
     
     /**
@@ -41,5 +43,19 @@ public abstract class Boton extends JButton{
      */
     public void anadirEscuchadorRaton(){
         addMouseListener(escuchadorRaton);
+    }
+    
+    /**
+     * Aumenta el tamaño del texto del botón.
+     */
+    public void aumentarTamanoTexto(){
+        setFont(new Font("Liberation Serif", Font.BOLD, 50));
+    }
+    
+    /**
+     * Disminuye el tamaño del texto del botón.
+     */
+    public void disminuirTamanoTexto(){
+        setFont(new Font("Liberation Serif", Font.BOLD, 25));
     }
 }

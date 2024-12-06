@@ -55,4 +55,22 @@ public class PanelBotonesOperaciones extends JPanel{
             boton.anadirEscuchadorRaton();
         }
     }
+    
+    /**
+     * Aumenta el tamaño del texto de los botones del panel.
+     */
+    public void aumentarTamanoTextoBotones(){
+        for(Boton boton : botones){
+            boton.aumentarTamanoTexto();
+        }
+    }
+    
+    /**
+     * Disminuye el tamaño del texto de los botones del panel.
+     */
+    public void disminuirTamanoTextoBotones(){
+        for(Boton boton : botones){
+            boton.disminuirTamanoTexto();
+        }
+    }
 }

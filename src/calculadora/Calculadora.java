@@ -7,12 +7,18 @@ import exceptions.MathException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.geom.Rectangle2D;
 import javax.swing.border.EmptyBorder;
 import operacionestextoanumero.OperacionesTextoANumero;
 
@@ -48,6 +54,11 @@ public class Calculadora extends JFrame{
     private final EscuchadorTeclado escuchadorTeclado;
     
     /**
+     * Panel que muestra el modo en el que se encuentra la calculadora.
+     */
+    private final PanelModo panelModo = new PanelModo();
+    
+    /**
      * Constructor de calculadoras.
      */
     private Calculadora(){
@@ -73,6 +84,7 @@ public class Calculadora extends JFrame{
         setFocusable(true);
         escuchadorTeclado = new EscuchadorTeclado();
         addKeyListener(escuchadorTeclado);
+        addWindowListener(new EscuchadorEventosVentana());
         setVisible(true);
     }
     
@@ -113,6 +125,8 @@ public class Calculadora extends JFrame{
         barraMenus.setLayout(new BorderLayout());
         barraMenus.add(menuModo, BorderLayout.LINE_START);
         barraMenus.setBorder(new EmptyBorder(0,0,0,0));
+        panelModo.setModo(Modo.LIBRE);
+        barraMenus.add(panelModo, BorderLayout.CENTER);
         return barraMenus;
     }
     
@@ -127,6 +141,8 @@ public class Calculadora extends JFrame{
         
             @Override
             public void actionPerformed(ActionEvent e){
+                panelModo.setModo(Modo.RATON);
+                panelModo.repaint();
                 removeKeyListener(escuchadorTeclado);
                 panelBotones.eliminarEscuchadorRatonBotones();
                 panelBotones.anadirEscuchadorRatonBotones();
@@ -140,6 +156,8 @@ public class Calculadora extends JFrame{
         
         @Override
         public void actionPerformed(ActionEvent e){
+            panelModo.setModo(Modo.TECLADO);
+            panelModo.repaint();
             removeKeyListener(escuchadorTeclado);
             addKeyListener(escuchadorTeclado);
             panelBotones.eliminarEscuchadorRatonBotones();
@@ -153,6 +171,8 @@ public class Calculadora extends JFrame{
         
         @Override
         public void actionPerformed(ActionEvent e){
+            panelModo.setModo(Modo.LIBRE);
+            panelModo.repaint();
             removeKeyListener(escuchadorTeclado);
             addKeyListener(escuchadorTeclado);
             panelBotones.eliminarEscuchadorRatonBotones();
@@ -175,7 +195,12 @@ public class Calculadora extends JFrame{
             int localizacion = ke.getKeyLocation();
             switch(codigo){
                 case 8 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
+                    Calculadora.panel.setResultado(true);
                     String textoAMostrar = Calculadora.panel.getTextoMostrado();
                     int tamanoTexto = textoAMostrar.length();
                     if(tamanoTexto > 1){
@@ -189,42 +214,82 @@ public class Calculadora extends JFrame{
                     }
                 }
                 case KeyEvent.VK_NUMPAD0 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('0');
                 }
                 case KeyEvent.VK_NUMPAD1 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('1');
                 }
                 case KeyEvent.VK_NUMPAD2 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('2');
                 }
                 case KeyEvent.VK_NUMPAD3 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('3');
                 }
                 case KeyEvent.VK_NUMPAD4 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('4');
                 }
                 case KeyEvent.VK_NUMPAD5 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('5');
                 }
                 case KeyEvent.VK_NUMPAD6 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('6');
                 }
                 case KeyEvent.VK_NUMPAD7 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('7');
                 }
                 case KeyEvent.VK_NUMPAD8 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('8');
                 }
                 case KeyEvent.VK_NUMPAD9 -> {
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     Calculadora.panel.setForeground(Color.black);
                     panel.mostrarCaracter('9');
                 }
@@ -232,6 +297,7 @@ public class Calculadora extends JFrame{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         Calculadora.panel.setForeground(Color.black);
                         try{
+                            Calculadora.panel.setResultado(true);
                             String resultado = OperacionesTextoANumero.operar(Calculadora.panel.getTextoMostrado());
                             if(Double.parseDouble(resultado) < 0){
                                 Calculadora.panel.setForeground(Color.red);
@@ -248,35 +314,59 @@ public class Calculadora extends JFrame{
                 }
                 case 107 ->{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
+                        if(Calculadora.panel.isResultado()){
+                            Calculadora.panel.limpiar();
+                            Calculadora.panel.setResultado(false);
+                        }
                         Calculadora.panel.setForeground(Color.black);
                         panel.mostrarCaracter('+');
                     }
                 }
                 case 109 ->{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
+                        if(Calculadora.panel.isResultado()){
+                            Calculadora.panel.limpiar();
+                            Calculadora.panel.setResultado(false);
+                        }
                         Calculadora.panel.setForeground(Color.black);
                         panel.mostrarCaracter('-');
                     }
                 }
                 case 106 ->{
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         Calculadora.panel.setForeground(Color.black);
                         panel.mostrarCaracter('*');
                     }
                 }
                 case 110 ->{
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         Calculadora.panel.setForeground(Color.black);
                         panel.mostrarCaracter(',');
                     }
                 }
                 case 111 ->{
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         Calculadora.panel.setForeground(Color.black);
                         panel.mostrarCaracter('/');
                     }
                 }
                 case KeyEvent.VK_ESCAPE ->{
+                    if(Calculadora.panel.isResultado()){
+                        Calculadora.panel.limpiar();
+                        Calculadora.panel.setResultado(false);
+                    }
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         Calculadora.panel.setForeground(Color.black);
                         panel.limpiar();
@@ -286,8 +376,91 @@ public class Calculadora extends JFrame{
         }
     }
     
+    /**
+     * Clase que representa al panel que muestra el modo
+     * en el que se encuentra la calculadora en texto.
+     */
+    private class PanelModo extends JPanel{
+       
+        /**
+         * Modo en el que se encuentra la calculadora.
+         */
+        private Modo modo;
+
+        /**
+         * Permite obtener el modo en el que se encuentra la calculadora.
+         * @return Modo en el que se encuentra la calculadora.
+         */
+        public Modo getModo() {
+            return modo;
+        }
+
+        /**
+         * Permite establecer el modo en el que se encuentra la calculadora.
+         * @param modo Modo en el que se encuentra la calculadora a establecer.
+         */
+        public void setModo(Modo modo) {
+            this.modo = modo;
+        }
+        
+        /**
+         * Constructor de paneles que muestran el modo en el que se encuentra
+         * la calculadora en texto.
+         */
+        public PanelModo(){
+            setBackground(Color.WHITE);
+        }
+        
+        public PanelModo(Modo modo){
+            super();
+            this.modo = modo;
+        }
+        
+        @Override
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            String modoString = "";
+            int posicion_x = getWidth() / 2;
+            int posicion_y = getHeight() / 2 + 10;
+            g.setFont(new Font("Liberation Serif", Font.BOLD, 20));
+            
+            switch(modo){
+                case Modo.LIBRE -> {modoString = "Libre";}
+                case Modo.TECLADO -> {modoString = "Teclado";}
+                case Modo.RATON -> {modoString = "Ratón";}
+            }
+            g.drawString(modoString, posicion_x, posicion_y);
+        }
+    }
+    
+    /**
+     * Clase enumerada con los modos posibles en los que puede encontrarse el programa.
+     */
+    private enum Modo{
+        LIBRE,
+        TECLADO,
+        RATON;
+    }
+    
+    /**
+     * Clase que gestiona los eventos de ventana.
+     */
     private class EscuchadorEventosVentana extends WindowAdapter{
         
+        @Override
+        public void windowIconified(WindowEvent e){
+            panel.limpiar();
+        }
         
+        public void windowStateChange(WindowEvent e){
+            if(e.getNewState() == JFrame.MAXIMIZED_BOTH){
+                panelBotones.aumentarTamanoTextoBotones();
+            }
+            else{
+                if(e.getNewState() == JFrame.NORMAL){
+                    panelBotones.disminuirTamanoTextoBotones();
+                }
+            }
+        }
     }
 }

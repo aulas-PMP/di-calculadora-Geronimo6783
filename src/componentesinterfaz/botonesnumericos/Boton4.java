@@ -17,7 +17,6 @@ public class Boton4 extends Boton{
      */
     public Boton4(){
         super('4');
-        addMouseListener(new EscuchadorRaton());
         escuchadorRaton = new EscuchadorRaton();
         anadirEscuchadorRaton();
     }
@@ -30,6 +29,10 @@ public class Boton4 extends Boton{
         @Override
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
+                if(Calculadora.panel.isResultado()){
+                    Calculadora.panel.limpiar();
+                    Calculadora.panel.setResultado(false);
+                }
                 Calculadora.panel.setForeground(Color.black);
                 Calculadora.panel.mostrarCaracter('4');
             }

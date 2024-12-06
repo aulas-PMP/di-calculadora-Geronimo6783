@@ -1,6 +1,5 @@
 package componentesinterfaz;
 
-import calculadora.Calculadora;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -27,7 +26,6 @@ public class PanelBotones extends JPanel{
      */
     public PanelBotones(){
         setLayout(new GridLayout(1,2));
-        Dimension tamanoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
         panelBotonesNumericos = new PanelBotonesNumericos();
         panelBotonesOperaciones = new PanelBotonesOperaciones();
         add(panelBotonesNumericos);
@@ -48,5 +46,21 @@ public class PanelBotones extends JPanel{
     public void anadirEscuchadorRatonBotones(){
         panelBotonesNumericos.anadirEscuchadorRatonBotones();
         panelBotonesOperaciones.anadirEscuchadorRatonBotones();
+    }
+    
+    /**
+     * Aumenta el tamaño del texto de los botones.
+     */
+    public void aumentarTamanoTextoBotones(){
+        panelBotonesNumericos.aumentarTamanoTextoBotones();
+        panelBotonesOperaciones.aumentarTamanoTextoBotones();
+    }
+    
+    /**
+     * Disminuye el tamaño del texto de los botones.
+     */
+    public void disminuirTamanoTextoBotones(){
+        panelBotonesNumericos.disminuirTamanoTextoBotones();
+        panelBotonesOperaciones.disminuirTamanoTextoBotones();
     }
 }

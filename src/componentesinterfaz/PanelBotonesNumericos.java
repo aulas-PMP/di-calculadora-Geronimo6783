@@ -6,9 +6,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 /**
  * Clase que representa al panel de los botones donde
@@ -137,6 +136,24 @@ public class PanelBotonesNumericos extends JPanel{
     public void anadirEscuchadorRatonBotones(){
         for(Boton boton : botones){
             boton.anadirEscuchadorRaton();
+        }
+    }
+    
+    /**
+     * Aumenta el tamaño del texto de los botones del panel.
+     */
+    public void aumentarTamanoTextoBotones(){
+        for(Boton boton : botones){
+            boton.aumentarTamanoTexto();
+        }
+    }
+    
+    /**
+     * Disminuye el tamaño del texto de los botones del panel.
+     */
+    public void disminuirTamanoTextoBotones(){
+        for(Boton boton : botones){
+            boton.disminuirTamanoTexto();
         }
     }
 }
