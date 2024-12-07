@@ -8,9 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.Rectangle2D;
 import javax.swing.border.EmptyBorder;
 import operacionestextoanumero.OperacionesTextoANumero;
 
@@ -84,7 +81,9 @@ public class Calculadora extends JFrame{
         setFocusable(true);
         escuchadorTeclado = new EscuchadorTeclado();
         addKeyListener(escuchadorTeclado);
-        addWindowListener(new EscuchadorEventosVentana());
+        EscuchadorEventosVentana escuchadorEventosVentana = new EscuchadorEventosVentana();
+        addWindowListener(escuchadorEventosVentana);
+        addWindowStateListener(escuchadorEventosVentana);
         setVisible(true);
     }
     
@@ -200,7 +199,6 @@ public class Calculadora extends JFrame{
                         Calculadora.panel.setResultado(false);
                     }
                     Calculadora.panel.setForeground(Color.black);
-                    Calculadora.panel.setResultado(true);
                     String textoAMostrar = Calculadora.panel.getTextoMostrado();
                     int tamanoTexto = textoAMostrar.length();
                     if(tamanoTexto > 1){
@@ -421,12 +419,13 @@ public class Calculadora extends JFrame{
             super.paintComponent(g);
             String modoString = "";
             int posicion_x = getWidth() / 2;
-            int posicion_y = getHeight() / 2 + 10;
+            int posicion_y = getHeight() / 2 + 12;
             g.setFont(new Font("Liberation Serif", Font.BOLD, 20));
             
             switch(modo){
                 case Modo.LIBRE -> {modoString = "Libre";}
-                case Modo.TECLADO -> {modoString = "Teclado";}
+                case Modo.TECLADO -> {posicion_x -= 15; 
+                                      modoString = "Teclado";}
                 case Modo.RATON -> {modoString = "Ratón";}
             }
             g.drawString(modoString, posicion_x, posicion_y);
@@ -452,7 +451,8 @@ public class Calculadora extends JFrame{
             panel.limpiar();
         }
         
-        public void windowStateChange(WindowEvent e){
+        @Override
+        public void windowStateChanged(WindowEvent e){
             if(e.getNewState() == JFrame.MAXIMIZED_BOTH){
                 panelBotones.aumentarTamanoTextoBotones();
             }
