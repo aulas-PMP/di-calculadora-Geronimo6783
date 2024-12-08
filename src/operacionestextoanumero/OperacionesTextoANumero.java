@@ -102,8 +102,7 @@ public class OperacionesTextoANumero {
                         operando2 = iteradorNumeros.next();
                     }
                     else{
-                        operando1 = iteradorNumeros.next();
-                        operando2 = iteradorNumeros.next();
+                        iteradorNumeros.next();
                     }
                 }
             }
