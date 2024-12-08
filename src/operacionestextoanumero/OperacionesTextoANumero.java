@@ -97,13 +97,7 @@ public class OperacionesTextoANumero {
                 }
                 else{
                     numeroOperacionesNoPrioritarias++;
-                    if(operando1 != null){
-                        operando1 = operando2;
-                        operando2 = iteradorNumeros.next();
-                    }
-                    else{
-                        iteradorNumeros.next();
-                    }
+                    iteradorNumeros.next();
                 }
             }
 
