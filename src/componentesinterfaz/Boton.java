@@ -2,11 +2,9 @@ package componentesinterfaz;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
 
 /**
  * Clase que representa a un botón de la interfaz gráfica de la calculadora.

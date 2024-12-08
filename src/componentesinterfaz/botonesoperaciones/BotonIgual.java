@@ -33,9 +33,11 @@ public class BotonIgual extends Boton{
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
                 try{
+                    Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
+                    Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                     Calculadora.panel.setResultado(true);
                     String resultado = OperacionesTextoANumero.operar(Calculadora.panel.getTextoMostrado());
-                    if(Double.parseDouble(resultado) < 0){
+                    if(!resultado.equals(" ") && Double.parseDouble(resultado) < 0){
                         Calculadora.panel.setForeground(Color.red);
                     }
                     else{

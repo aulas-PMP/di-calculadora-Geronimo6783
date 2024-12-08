@@ -14,12 +14,12 @@ public class OperacionesTextoANumero {
     /**
      * Números contenidos en el texto.
      */
-    private static ArrayList<Number> numeros = new ArrayList<>();
+    private static final ArrayList<Number> numeros = new ArrayList<>();
     
     /**
      * Operadores contenidas en el texto.
      */
-    private static ArrayList<Character> operadores = new ArrayList<>();
+    private static final ArrayList<Character> operadores = new ArrayList<>();
     
     /**
      * Realiza las operaciones matemáticas de un texto.
@@ -30,6 +30,20 @@ public class OperacionesTextoANumero {
     public static String operar(String textoOperaciones) throws MathException {
         try{
             obtenerNumeroYOperadores(textoOperaciones);
+            if(operadores.isEmpty()  && numeros.size() == 1){
+                Number numero = numeros.get(0);
+                numeros.clear();
+                if(numero instanceof Double){
+                    return Double.toString(numero.doubleValue());
+                }
+                else{
+                    return Long.toString(numero.longValue());
+                }
+            }else{
+                if(operadores.isEmpty() && numeros.isEmpty()){
+                    return " ";
+                }
+            }
             Iterator<Number> iteradorNumeros = numeros.iterator();
             Iterator<Character> iteradorOperadores = operadores.iterator();
             char operador;
@@ -37,7 +51,6 @@ public class OperacionesTextoANumero {
             Number operando2 = null;
             Number resultadoOperacion = 0;
             int numeroOperacionesNoPrioritarias = 0;
-            int indiceNumero = 0;
 
             while(iteradorOperadores.hasNext()){
                 operador = iteradorOperadores.next();

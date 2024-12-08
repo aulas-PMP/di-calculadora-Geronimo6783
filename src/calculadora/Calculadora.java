@@ -26,9 +26,14 @@ import operacionestextoanumero.OperacionesTextoANumero;
 public class Calculadora extends JFrame{
     
     /**
-     * Panel de salida de la calculadora.
+     * Panel de salida de la calculadora que muestra lo que introduce el usuario y el resultado de las operaciones.
      */
     public static PanelSalida panel = new PanelSalida();
+    
+    /**
+     * Panel que muestra la operación que ha introducido el usuario en la calculadora.
+     */
+    public static PanelSalida panelOperacion = new PanelSalida();
     
     /**
      * Altura de la calculadora cuando no está en pantalla completa.
@@ -70,11 +75,17 @@ public class Calculadora extends JFrame{
         setBounds(anchuraPantalla/4, (alturaPantalla - 600)/2, anchuraCalculadoraNoPantallaCompleta, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panelSalida = new JPanel();
-        panelSalida.setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , Calculadora.alturaCalculadoraNoPantallaCompleta / 6);
-        panelSalida.setMaximumSize(new Dimension(anchuraPantalla, (Calculadora.alturaCalculadoraNoPantallaCompleta / 6) * (alturaPantalla / Calculadora.alturaCalculadoraNoPantallaCompleta)));
+        panelSalida.setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , Calculadora.alturaCalculadoraNoPantallaCompleta / 12);
+        panelSalida.setMaximumSize(new Dimension(anchuraPantalla, (Calculadora.alturaCalculadoraNoPantallaCompleta / 12)));
         panelSalida.setLayout(new BorderLayout());
         panelSalida.add(panel, BorderLayout.CENTER);
         add(generarBarraDeMenus());
+        JPanel jPanelOperacion = new JPanel();
+        jPanelOperacion.setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta , Calculadora.alturaCalculadoraNoPantallaCompleta / 12);
+        jPanelOperacion.setMaximumSize(new Dimension(anchuraPantalla, (Calculadora.alturaCalculadoraNoPantallaCompleta / 12)));
+        jPanelOperacion.setLayout(new BorderLayout());
+        jPanelOperacion.add(panelOperacion, BorderLayout.CENTER);
+        add(jPanelOperacion);
         add(panelSalida);
         panelBotones = new PanelBotones();
         add(panelBotones);
@@ -129,6 +140,10 @@ public class Calculadora extends JFrame{
         return barraMenus;
     }
     
+    /**
+     * Método principal del programa que inicia la calculadora.
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         new Calculadora();
     }
@@ -293,11 +308,12 @@ public class Calculadora extends JFrame{
                 }
                 case 10 ->{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
-                        Calculadora.panel.setForeground(Color.black);
                         try{
+                            Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
+                            Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                             Calculadora.panel.setResultado(true);
                             String resultado = OperacionesTextoANumero.operar(Calculadora.panel.getTextoMostrado());
-                            if(Double.parseDouble(resultado) < 0){
+                            if(!resultado.equals(" ") && Double.parseDouble(resultado) < 0){
                                 Calculadora.panel.setForeground(Color.red);
                             }
                             else{
@@ -371,6 +387,17 @@ public class Calculadora extends JFrame{
                     }
                 }
             }
+            
+            if(ke.getKeyChar() == ',' && localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
+                if(Calculadora.panel.isResultado()){
+                    Calculadora.panel.limpiar();
+                    Calculadora.panel.setResultado(false);
+                }
+                if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
+                    Calculadora.panel.setForeground(Color.black);
+                    panel.mostrarCaracter(',');
+                }
+            }
         }
     }
     
@@ -409,11 +436,6 @@ public class Calculadora extends JFrame{
             setBackground(Color.WHITE);
         }
         
-        public PanelModo(Modo modo){
-            super();
-            this.modo = modo;
-        }
-        
         @Override
         public void paintComponent(Graphics g){
             super.paintComponent(g);
@@ -446,19 +468,31 @@ public class Calculadora extends JFrame{
      */
     private class EscuchadorEventosVentana extends WindowAdapter{
         
+        /**
+         * Gestiona la ventana cuando es miminizada.
+         * @param e Evento de ventana.
+         */
         @Override
         public void windowIconified(WindowEvent e){
             panel.limpiar();
         }
         
+        /**
+         * Gestiona la ventana cuando cambia de estado.
+         * @param e Evento de ventana.
+         */
         @Override
         public void windowStateChanged(WindowEvent e){
             if(e.getNewState() == JFrame.MAXIMIZED_BOTH){
                 panelBotones.aumentarTamanoTextoBotones();
+                Calculadora.panel.setFont(new Font("Liberation Serif", Font.BOLD, 100));
+                Calculadora.panelOperacion.setFont(new Font("Liberation Serif", Font.BOLD, 100));
             }
             else{
                 if(e.getNewState() == JFrame.NORMAL){
                     panelBotones.disminuirTamanoTextoBotones();
+                    Calculadora.panel.setFont(new Font("Liberation Serif", Font.BOLD, 50));
+                    Calculadora.panelOperacion.setFont(new Font("Liberation Serif", Font.BOLD, 50));
                 }
             }
         }

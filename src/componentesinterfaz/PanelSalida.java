@@ -1,6 +1,5 @@
 package componentesinterfaz;
 
-import calculadora.Calculadora;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -31,8 +30,7 @@ public class PanelSalida extends JLabel{
         resultado = false;
         setHorizontalAlignment(SwingConstants.RIGHT);
         setOpaque(true);
-        setFont(new Font("Liberation Serif", Font.BOLD, 100));
-        setSize(Calculadora.anchuraCalculadoraNoPantallaCompleta, Calculadora.alturaCalculadoraNoPantallaCompleta / 6);
+        setFont(new Font("Liberation Serif", Font.BOLD, 50));
         setBackground(Color.WHITE);
     }
 

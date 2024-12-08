@@ -26,7 +26,6 @@ public class PanelBotonesOperaciones extends JPanel{
      */
     public PanelBotonesOperaciones(){
         setLayout(new GridLayout(3,2));
-        setSize((Calculadora.anchuraCalculadoraNoPantallaCompleta * 1) / 4, (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6);
         botones[0] = new BotonSuma();
         botones[1] = new BotonResta();
         botones[2] = new BotonMultiplicacion();

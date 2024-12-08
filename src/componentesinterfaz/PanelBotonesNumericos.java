@@ -2,11 +2,8 @@ package componentesinterfaz;
 
 import calculadora.Calculadora;
 import componentesinterfaz.botonesnumericos.*;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -26,7 +23,6 @@ public class PanelBotonesNumericos extends JPanel{
      * botones numeŕicos y de operaciones.
      */
     public PanelBotonesNumericos(){
-        setMinimumSize(new Dimension((Calculadora.anchuraCalculadoraNoPantallaCompleta * 3) / 4, (Calculadora.alturaCalculadoraNoPantallaCompleta * 5) / 6));
         setLayout(new GridBagLayout());
         GridBagConstraints restriccionesLayout = new GridBagConstraints();
         restriccionesLayout.weightx = (Calculadora.anchuraCalculadoraNoPantallaCompleta * 3) / 4;
