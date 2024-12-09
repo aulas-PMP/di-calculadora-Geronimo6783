@@ -56,19 +56,34 @@ public class OperacionesTextoANumero {
                 operador = iteradorOperadores.next();
 
                 if(operador == '*' || operador == '/'){
-                    operando1 = iteradorNumeros.next();
-                    operando2 = iteradorNumeros.next();
+                    if(iteradorNumeros.hasNext()){
+                        operando1 = iteradorNumeros.next();
+                    }
+                    else{
+                        operando1 = null;
+                    }
+                    if(iteradorNumeros.hasNext()){
+                        operando2 = iteradorNumeros.next();
+                    }
+                    else{
+                        operando2 = null;
+                    }
                     switch(operador){
                         case '*' -> {
-                            if(operando1 instanceof Double || operando2 instanceof Double){
+                            if(operando1 != null && operando1 instanceof Double || operando2 != null && operando2 instanceof Double){
                                 resultadoOperacion = operando1.doubleValue() * operando2.doubleValue();
                             }
                             else{
-                                resultadoOperacion = operando1.longValue() * operando2.longValue();
+                                if(operando1 != null && operando2 != null){
+                                    resultadoOperacion = operando1.longValue() * operando2.longValue();
+                                }
+                                else{
+                                    throw new MathException();
+                                }
                             }
                         } 
                         case '/' -> {     
-                            if(operando1.doubleValue() % operando2.doubleValue() != 0){
+                            if(operando1 != null && operando2 != null && operando1.doubleValue() % operando2.doubleValue() != 0){
                                 if(operando2.doubleValue() != 0){
                                     resultadoOperacion = operando1.doubleValue() / operando2.doubleValue();
                                 }
@@ -77,7 +92,7 @@ public class OperacionesTextoANumero {
                                 }
                             }
                             else{
-                                if(operando2.longValue() != 0){
+                                if(operando1 != null && operando2 != null && operando2.longValue() != 0){
                                     resultadoOperacion = operando1.longValue() / operando2.longValue();
                                 }
                                 else{
@@ -92,12 +107,16 @@ public class OperacionesTextoANumero {
                     iteradorNumeros.remove();
                     iteradorNumeros = numeros.iterator();
                     for(int i = 0; i < numeroOperacionesNoPrioritarias; i++){
-                        iteradorNumeros.next();
+                        if(iteradorNumeros.hasNext()){
+                            iteradorNumeros.next();
+                        }
                     }
                 }
                 else{
                     numeroOperacionesNoPrioritarias++;
-                    iteradorNumeros.next();
+                    if(iteradorNumeros.hasNext()){
+                        iteradorNumeros.next();
+                    }
                 }
             }
 
@@ -106,24 +125,44 @@ public class OperacionesTextoANumero {
 
             while(iteradorOperadores.hasNext()){
                 operador = iteradorOperadores.next();
-                operando1 = iteradorNumeros.next();
-                operando2 = iteradorNumeros.next();
+                if(iteradorNumeros.hasNext()){
+                    operando1 = iteradorNumeros.next();
+                }
+                else{
+                    operando1 = null;
+                }
+                if(iteradorNumeros.hasNext()){
+                    operando2 = iteradorNumeros.next();
+                }
+                else{
+                    operando2 = null;
+                }
 
                 switch(operador){
                     case '+' ->{
-                        if(operando1 instanceof Double || operando2 instanceof Double){
+                        if(operando1 != null && operando1 instanceof Double || operando2 != null && operando2 instanceof Double){
                             resultadoOperacion = operando1.doubleValue() + operando2.doubleValue();
                         }
                         else{
-                            resultadoOperacion = operando1.longValue() + operando2.longValue();
+                            if(operando1 != null && operando2 != null){
+                                resultadoOperacion = operando1.longValue() + operando2.longValue();
+                            }
+                            else{
+                                throw new MathException();
+                            }
                         }
                     }
                     case '-' ->{
-                        if(operando1 instanceof Double || operando2 instanceof Double){
+                        if(operando1 != null && operando1 instanceof Double || operando2 != null && operando2 instanceof Double){
                             resultadoOperacion = operando1.doubleValue() - operando2.doubleValue();
                         }
                         else{
-                            resultadoOperacion = operando1.longValue() - operando2.longValue();
+                            if(operando1 != null && operando2 != null){
+                                resultadoOperacion = operando1.longValue() - operando2.longValue();
+                            }
+                            else{
+                                throw new MathException();
+                            }
                         }
                     }
                 }
@@ -138,7 +177,6 @@ public class OperacionesTextoANumero {
             operadores.clear();
             
             if(resultadoOperacion instanceof Double){
- 
                 return Double.toString(resultadoOperacion.doubleValue());
             }
             else{
@@ -146,7 +184,9 @@ public class OperacionesTextoANumero {
             }
         }
         catch(Exception e){
-            throw new MathException();
+            numeros.clear();
+            operadores.clear();
+            throw e;
         }
     }
     
