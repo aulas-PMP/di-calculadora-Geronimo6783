@@ -155,66 +155,73 @@ public class OperacionesTextoANumero {
      * @param textoOperaciones Texto con las operaciones matemáticas a realizar.
      */
     private static void obtenerNumeroYOperadores(String textoOperaciones) throws MathException {
-        textoOperaciones = textoOperaciones.replaceAll(",", ".");
-        char[] caracteresTextoOperaciones = textoOperaciones.toCharArray();
-        
-        String numero = "";
-        char caracter;
-        
-        for(int i = 0; i < caracteresTextoOperaciones.length; i++){
-            caracter = caracteresTextoOperaciones[i];
-            
-            switch(caracter){
-                case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ->{
-                    numero += caracter;
-                    if(i == caracteresTextoOperaciones.length - 1){
-                        numeros.add(stringANumero(numero));
-                    }
-                }
-                
-                case '+', '*', '/' -> {
-                    if(numero.isEmpty()){
-                        throw new MathException();
-                    }
-                    else{  
-                        numeros.add(stringANumero(numero));  
-                        numero = "";
-                        operadores.add(caracter);
-                    }
-                }
-                
-                case '-' -> {
-                    
-                    if(i != 0 && (caracteresTextoOperaciones[i - 1] == '0' || caracteresTextoOperaciones[i - 1] == '1' || 
-                       caracteresTextoOperaciones[i - 1] == '2' || caracteresTextoOperaciones[i - 1] == '3' || 
-                       caracteresTextoOperaciones[i - 1] == '4' || caracteresTextoOperaciones[i - 1] == '5' || 
-                       caracteresTextoOperaciones[i - 1] == '6' || caracteresTextoOperaciones[i - 1] == '7' || 
-                       caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9')){
-                        
-                        numeros.add(stringANumero(numero));  
-                        numero = "";
-                        operadores.add(caracter);
-                    }
-                    else{
+        try{
+            textoOperaciones = textoOperaciones.replaceAll(",", ".");
+            char[] caracteresTextoOperaciones = textoOperaciones.toCharArray();
+
+            String numero = "";
+            char caracter;
+
+            for(int i = 0; i < caracteresTextoOperaciones.length; i++){
+                caracter = caracteresTextoOperaciones[i];
+
+                switch(caracter){
+                    case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ->{
                         numero += caracter;
+                        if(i == caracteresTextoOperaciones.length - 1){
+                            numeros.add(stringANumero(numero));
+                        }
                     }
-                }
-                
-                case '.' -> {
-                    
-                    if(caracteresTextoOperaciones[i - 1] == '0' || caracteresTextoOperaciones[i - 1] == '1' || 
-                       caracteresTextoOperaciones[i - 1] == '2' || caracteresTextoOperaciones[i - 1] == '3' || 
-                       caracteresTextoOperaciones[i - 1] == '4' || caracteresTextoOperaciones[i - 1] == '5' || 
-                       caracteresTextoOperaciones[i - 1] == '6' || caracteresTextoOperaciones[i - 1] == '7' || 
-                       caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9'){
-                        
-                        numero += caracter;
+
+                    case '+', '*', '/' -> {
+                        if(numero.isEmpty()){
+                            throw new MathException();
+                        }
+                        else{  
+                            numeros.add(stringANumero(numero));  
+                            numero = "";
+                            operadores.add(caracter);
+                        }
                     }
-                    else{
-                        throw new MathException();
+
+                    case '-' -> {
+
+                        if(i != 0 && (caracteresTextoOperaciones[i - 1] == '0' || caracteresTextoOperaciones[i - 1] == '1' || 
+                           caracteresTextoOperaciones[i - 1] == '2' || caracteresTextoOperaciones[i - 1] == '3' || 
+                           caracteresTextoOperaciones[i - 1] == '4' || caracteresTextoOperaciones[i - 1] == '5' || 
+                           caracteresTextoOperaciones[i - 1] == '6' || caracteresTextoOperaciones[i - 1] == '7' || 
+                           caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9')){
+
+                            numeros.add(stringANumero(numero));  
+                            numero = "";
+                            operadores.add(caracter);
+                        }
+                        else{
+                            numero += caracter;
+                        }
+                    }
+
+                    case '.' -> {
+
+                        if(caracteresTextoOperaciones[i - 1] == '0' || caracteresTextoOperaciones[i - 1] == '1' || 
+                           caracteresTextoOperaciones[i - 1] == '2' || caracteresTextoOperaciones[i - 1] == '3' || 
+                           caracteresTextoOperaciones[i - 1] == '4' || caracteresTextoOperaciones[i - 1] == '5' || 
+                           caracteresTextoOperaciones[i - 1] == '6' || caracteresTextoOperaciones[i - 1] == '7' || 
+                           caracteresTextoOperaciones[i - 1] == '8' || caracteresTextoOperaciones[i - 1] == '9'){
+
+                            numero += caracter;
+                        }
+                        else{
+                            throw new MathException();
+                        }
                     }
                 }
             }
+        }
+        catch(MathException e){
+            numeros.clear();
+            operadores.clear();
+            throw e;
         }
     }
     
