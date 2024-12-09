@@ -210,8 +210,6 @@ public class Calculadora extends JFrame{
             switch(codigo){
                 case 8 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -230,8 +228,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD0 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -240,8 +236,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD1 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -250,8 +244,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD2 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -260,8 +252,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD3 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -270,8 +260,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD4 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -280,8 +268,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD5 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -290,8 +276,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD6 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -300,8 +284,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD7 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -310,8 +292,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD8 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -320,8 +300,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_NUMPAD9 -> {
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -331,8 +309,6 @@ public class Calculadora extends JFrame{
                 case 10 ->{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         try{
-                            Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                            Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                             Calculadora.panel.setResultado(true);
                             String resultado = OperacionesTextoANumero.operar(Calculadora.panel.getTextoMostrado());
                             if(!resultado.equals(" ") && Double.parseDouble(resultado) < 0){
@@ -342,6 +318,8 @@ public class Calculadora extends JFrame{
                                 Calculadora.panel.setForeground(Color.black);
                             }
                             Calculadora.panel.setTextoMostrado(resultado.replace(".", ","));
+                            Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
+                                Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         }
                         catch(MathException e){
                             Calculadora.panel.setTextoMostrado("Math Error");
@@ -351,8 +329,6 @@ public class Calculadora extends JFrame{
                 case 107 ->{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         if(Calculadora.panel.isResultado()){
-                            Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                            Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                             Calculadora.panel.limpiar();
                             Calculadora.panel.setResultado(false);
                         }
@@ -363,8 +339,6 @@ public class Calculadora extends JFrame{
                 case 109 ->{
                     if(localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                         if(Calculadora.panel.isResultado()){
-                            Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                            Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                             Calculadora.panel.limpiar();
                             Calculadora.panel.setResultado(false);
                         }
@@ -374,8 +348,6 @@ public class Calculadora extends JFrame{
                 }
                 case 106 ->{
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -386,8 +358,6 @@ public class Calculadora extends JFrame{
                 }
                 case 110 ->{
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -398,8 +368,6 @@ public class Calculadora extends JFrame{
                 }
                 case 111 ->{
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                        Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -410,8 +378,6 @@ public class Calculadora extends JFrame{
                 }
                 case KeyEvent.VK_ESCAPE ->{
                     if(Calculadora.panel.isResultado()){
-                        Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                    Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                         Calculadora.panel.limpiar();
                         Calculadora.panel.setResultado(false);
                     }
@@ -424,8 +390,6 @@ public class Calculadora extends JFrame{
             
             if(ke.getKeyChar() == ',' && localizacion == KeyEvent.KEY_LOCATION_NUMPAD){
                 if(Calculadora.panel.isResultado()){
-                    Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                    Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                     Calculadora.panel.limpiar();
                     Calculadora.panel.setResultado(false);
                 }
@@ -511,6 +475,7 @@ public class Calculadora extends JFrame{
         @Override
         public void windowIconified(WindowEvent e){
             panel.limpiar();
+            panelOperacion.limpiar();
         }
         
         /**

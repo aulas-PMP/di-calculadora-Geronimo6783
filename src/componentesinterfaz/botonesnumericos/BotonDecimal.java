@@ -30,8 +30,6 @@ public class BotonDecimal extends Boton{
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
                 if(Calculadora.panel.isResultado()){
-                    Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                    Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                     Calculadora.panel.limpiar();
                     Calculadora.panel.setResultado(false);
                 }

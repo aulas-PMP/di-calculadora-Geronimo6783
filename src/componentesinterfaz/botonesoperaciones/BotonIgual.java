@@ -33,8 +33,6 @@ public class BotonIgual extends Boton{
         public void mouseClicked(MouseEvent me) {
             if(me.getButton() == MouseEvent.BUTTON1){
                 try{
-                    Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
-                    Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                     Calculadora.panel.setResultado(true);
                     String resultado = OperacionesTextoANumero.operar(Calculadora.panel.getTextoMostrado());
                     if(!resultado.equals(" ") && Double.parseDouble(resultado) < 0){
@@ -44,6 +42,8 @@ public class BotonIgual extends Boton{
                         Calculadora.panel.setForeground(Color.black);
                     }
                     Calculadora.panel.setTextoMostrado(resultado.replace(".", ","));
+                    Calculadora.panelOperacion.setForeground(Calculadora.panel.getForeground());
+                    Calculadora.panelOperacion.setTextoMostrado(Calculadora.panel.getTextoMostrado());
                 }
                 catch(MathException e){
                     Calculadora.panel.setTextoMostrado("Math Error");
