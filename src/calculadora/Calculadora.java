@@ -31,7 +31,7 @@ public class Calculadora extends JFrame{
     public static PanelSalida panel = new PanelSalida();
     
     /**
-     * Panel que muestra la operación que ha introducido el usuario en la calculadora y el resultado almacenado.
+     * Panel que muestra el resultado almacenado.
      */
     public static PanelSalida panelOperacion = new PanelSalida();
     
