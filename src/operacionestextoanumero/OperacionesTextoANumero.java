@@ -186,7 +186,7 @@ public class OperacionesTextoANumero {
         catch(Exception e){
             numeros.clear();
             operadores.clear();
-            throw e;
+            throw new MathException();
         }
     }
     
